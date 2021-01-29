@@ -9,6 +9,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/RotatingMovementComponent.h"
 #include "GameFramework/Pawn.h"
 #include "RoombaPawn.generated.h"
 
@@ -29,6 +30,8 @@ protected:
 	UCapsuleComponent* CapsuleComponent;
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* CapsuleVisual;
+	UPROPERTY(EditAnywhere)
+	URotatingMovementComponent* RotatingComponent;
 
 public:	
 	// Called every frame

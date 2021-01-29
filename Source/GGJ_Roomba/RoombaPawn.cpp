@@ -39,6 +39,11 @@ ARoombaPawn::ARoombaPawn()
 	// Create an instance of our movement component, and tell it to update the root.
 	MovementComponent = CreateDefaultSubobject<URoombaMovementComponent>(TEXT("CustomMovementComponent"));
 	MovementComponent->UpdatedComponent = RootComponent;
+
+	// Create the rotation component
+	RotatingComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("CustomRotationComponent"));
+	RotatingComponent->UpdatedComponent = RootComponent;
+	RotatingComponent->SetActive(true);
 }
 
 // Called when the game starts or when spawned
