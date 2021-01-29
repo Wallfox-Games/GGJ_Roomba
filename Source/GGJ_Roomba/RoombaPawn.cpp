@@ -44,6 +44,8 @@ ARoombaPawn::ARoombaPawn()
 	RotatingComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("CustomRotationComponent"));
 	RotatingComponent->UpdatedComponent = RootComponent;
 	RotatingComponent->SetActive(true);
+
+	RoombaMoving = false;
 }
 
 // Called when the game starts or when spawned
@@ -58,6 +60,10 @@ void ARoombaPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (RoombaMoving && MovementComponent && (MovementComponent->UpdatedComponent == RootComponent))
+	{
+		MovementComponent->AddInputVector(GetActorForwardVector());
+	}
 }
 
 // Called to bind functionality to input
@@ -65,7 +71,8 @@ void ARoombaPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis("Movement", this, &ARoombaPawn::MoveForward);
+	PlayerInputComponent->BindAction("Movement", IE_Pressed, this, &ARoombaPawn::StartMoving);
+	PlayerInputComponent->BindAction("Movement", IE_Released, this, &ARoombaPawn::StopMoving);
 }
 
 URoombaMovementComponent* ARoombaPawn::GetMovementComponent() const
@@ -73,11 +80,14 @@ URoombaMovementComponent* ARoombaPawn::GetMovementComponent() const
 	return MovementComponent;
 }
 
-void ARoombaPawn::MoveForward(float AxisValue)
+void ARoombaPawn::StartMoving()
 {
-	if (MovementComponent && (MovementComponent->UpdatedComponent == RootComponent))
-	{
-		MovementComponent->AddInputVector(GetActorForwardVector() * AxisValue);
-	}
+	RotatingComponent->SetActive(false);
+	RoombaMoving = true;
 }
 
+void ARoombaPawn::StopMoving()
+{
+	RotatingComponent->SetActive(true);
+	RoombaMoving = false;
+}

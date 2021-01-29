@@ -33,6 +33,8 @@ protected:
 	UPROPERTY(EditAnywhere)
 	URotatingMovementComponent* RotatingComponent;
 
+	bool RoombaMoving;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -45,5 +47,6 @@ public:
 
 	virtual URoombaMovementComponent* GetMovementComponent() const override;
 
-	void MoveForward(float AxisValue);
+	void StartMoving();
+	void StopMoving();
 };
