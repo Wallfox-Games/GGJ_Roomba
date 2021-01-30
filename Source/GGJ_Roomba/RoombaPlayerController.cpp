@@ -12,7 +12,7 @@ void ARoombaPlayerController::BeginPlay()
 
 float ARoombaPlayerController::getBatteryCharge() const
 {
-	return BatteryCharge;
+	return BatteryCharge / 100.f;
 }
 
 void ARoombaPlayerController::subBatteryCharge(float DeltaTime)
