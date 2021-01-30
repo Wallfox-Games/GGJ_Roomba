@@ -88,7 +88,6 @@ void ARoombaPawn::Tick(float DeltaTime)
 	}
 
 	RoombaHit = MovementComponent->getCurrentlyHit();
-	//GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Blue, FString::Printf(TEXT("Bool: %s"), RoombaHit ? TEXT("true") : TEXT("false")));
 	MaterialInstance->SetScalarParameterValue("Warning State", RoombaHit);
 }
 
