@@ -32,6 +32,8 @@ protected:
 	UStaticMeshComponent* CapsuleVisual;
 	UPROPERTY(EditAnywhere)
 	URotatingMovementComponent* RotatingComponent;
+	UPROPERTY(EditAnywhere)
+	USpringArmComponent* SpringArm;
 
 	UPROPERTY()
 	UMaterialInstanceDynamic* MaterialInstance;
