@@ -2,6 +2,8 @@
 
 
 #include "RoombaPawn.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Engine.h"
 
 // Sets default values
 ARoombaPawn::ARoombaPawn()
@@ -12,7 +14,8 @@ ARoombaPawn::ARoombaPawn()
 	// Our root component will be a sphere that reacts to physics
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("RootComponent"));
 	RootComponent = CapsuleComponent;
-	CapsuleComponent->SetCapsuleHalfHeight(20.f);
+	CapsuleComponent->SetCapsuleHalfHeight(2.f);
+	CapsuleComponent->SetCapsuleRadius(40.f);
 	CapsuleComponent->SetCollisionProfileName(TEXT("Pawn"));
 
 	CapsuleVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
@@ -43,9 +46,18 @@ ARoombaPawn::ARoombaPawn()
 	// Create the rotation component
 	RotatingComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("CustomRotationComponent"));
 	RotatingComponent->UpdatedComponent = RootComponent;
+	RotatingComponent->RotationRate = FRotator(0.f, 70.f, 0);
 	RotatingComponent->SetActive(true);
 
+	// Dynamic Material
+	static ConstructorHelpers::FObjectFinder<UMaterial> MAT(TEXT("Material'/Game/Materials/M_Roombie.M_Roombie'"));
+	if (MAT.Object != NULL)
+	{
+		MaterialDynamic = (UMaterial*)MAT.Object;
+	}
+
 	RoombaMoving = false;
+	RoombaHit = false;
 }
 
 // Called when the game starts or when spawned
@@ -53,6 +65,16 @@ void ARoombaPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
+
+	if (MaterialDynamic)
+	{
+		MaterialInstance = UMaterialInstanceDynamic::Create(MaterialDynamic, this);
+	}
+
+	if (MaterialInstance)
+	{
+		CapsuleVisual->SetMaterial(0, MaterialInstance);
+	}
 }
 
 // Called every frame
@@ -64,6 +86,10 @@ void ARoombaPawn::Tick(float DeltaTime)
 	{
 		MovementComponent->AddInputVector(GetActorForwardVector());
 	}
+
+	RoombaHit = MovementComponent->getCurrentlyHit();
+	//GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Blue, FString::Printf(TEXT("Bool: %s"), RoombaHit ? TEXT("true") : TEXT("false")));
+	MaterialInstance->SetScalarParameterValue("Warning State", RoombaHit);
 }
 
 // Called to bind functionality to input
