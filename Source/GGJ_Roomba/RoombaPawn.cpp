@@ -22,11 +22,9 @@ ARoombaPawn::ARoombaPawn()
 	CapsuleVisual->SetupAttachment(RootComponent);
 
 	// Use a spring arm to give the camera smooth, natural-feeling motion.
-	USpringArmComponent* SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraAttachmentArm"));
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraAttachmentArm"));
 	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->SetUsingAbsoluteRotation(true); // Don't want arm to rotate when character does
-	SpringArm->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
-	SpringArm->TargetArmLength = 800.f;
 	SpringArm->bEnableCameraLag = true;
 	SpringArm->CameraLagSpeed = 3.0f;
 	SpringArm->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
