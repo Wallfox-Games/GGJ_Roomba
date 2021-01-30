@@ -34,6 +34,7 @@ protected:
 	URotatingMovementComponent* RotatingComponent;
 
 	bool RoombaMoving;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

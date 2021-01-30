@@ -12,8 +12,7 @@ ARoombaPawn::ARoombaPawn()
 	// Our root component will be a sphere that reacts to physics
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("RootComponent"));
 	RootComponent = CapsuleComponent;
-	CapsuleComponent->SetCapsuleHalfHeight(1.5f);
-	CapsuleComponent->SetCapsuleRadius(20.f);
+	CapsuleComponent->SetCapsuleHalfHeight(20.f);
 	CapsuleComponent->SetCollisionProfileName(TEXT("Pawn"));
 
 	CapsuleVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
@@ -45,6 +44,8 @@ ARoombaPawn::ARoombaPawn()
 	RotatingComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("CustomRotationComponent"));
 	RotatingComponent->UpdatedComponent = RootComponent;
 	RotatingComponent->SetActive(true);
+
+	RoombaMoving = false;
 }
 
 // Called when the game starts or when spawned
@@ -90,4 +91,3 @@ void ARoombaPawn::StopMoving()
 	RotatingComponent->SetActive(true);
 	RoombaMoving = false;
 }
-
