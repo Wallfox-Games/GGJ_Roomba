@@ -14,8 +14,8 @@ ARoombaPawn::ARoombaPawn()
 	// Our root component will be a sphere that reacts to physics
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("RootComponent"));
 	RootComponent = CapsuleComponent;
-	CapsuleComponent->SetCapsuleHalfHeight(2.f);
-	CapsuleComponent->SetCapsuleRadius(40.f);
+	CapsuleComponent->SetCapsuleHalfHeight(1.f);
+	CapsuleComponent->SetCapsuleRadius(20.f);
 	CapsuleComponent->SetCollisionProfileName(TEXT("Pawn"));
 
 	CapsuleVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
