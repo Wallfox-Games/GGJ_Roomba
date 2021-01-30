@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RoombaMovementComponent.h"
-#include "UObject/ConstructorHelpers.h"
+#include "Materials/MaterialInstanceDynamic.h" 
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Camera/CameraComponent.h"
@@ -33,7 +33,13 @@ protected:
 	UPROPERTY(EditAnywhere)
 	URotatingMovementComponent* RotatingComponent;
 
+	UPROPERTY()
+	UMaterialInstanceDynamic* MaterialInstance;
+	UPROPERTY()
+	UMaterialInterface* MaterialDynamic;
+
 	bool RoombaMoving;
+	bool RoombaHit;
 
 public:	
 	// Called every frame

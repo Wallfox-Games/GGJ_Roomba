@@ -14,6 +14,11 @@ class GGJ_ROOMBA_API URoombaMovementComponent : public UPawnMovementComponent
 {
 	GENERATED_BODY()
 
+protected:
+	bool CurrentlyHit;
+
 public:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	bool getCurrentlyHit() { return CurrentlyHit; };
 };

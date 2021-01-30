@@ -2,10 +2,14 @@
 
 
 #include "RoombaMovementComponent.h"
+#include "Engine.h"
+#include "Math/Vector.h" 
 
 void URoombaMovementComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+    CurrentlyHit = false;
 
     // Make sure that everything is still valid, and that we are allowed to move.
     if (!PawnOwner || !UpdatedComponent || ShouldSkipUpdate(DeltaTime))
@@ -15,7 +19,7 @@ void URoombaMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Ti
 
     // Get (and then clear) the movement vector that we set in ACollidingPawn::Tick
     FVector DesiredMovementThisFrame = ConsumeInputVector().GetClampedToMaxSize(1.0f) * DeltaTime * 150.0f;
-    DesiredMovementThisFrame.Z -= 100.f;
+    DesiredMovementThisFrame.Z -= 10.f;
     if (!DesiredMovementThisFrame.IsNearlyZero())
     {
         FHitResult Hit;
@@ -24,6 +28,13 @@ void URoombaMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Ti
         // If we bumped into something, try to slide along it
         if (Hit.IsValidBlockingHit())
         {
+            
+            Hit.Normal.Normalize();
+            GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Blue, Hit.GetActor()->GetActorLabel());
+            if (Hit.GetActor()->GetActorLabel() != "Floor")
+            {
+                CurrentlyHit = true;
+            }
             SlideAlongSurface(DesiredMovementThisFrame, 1.f - Hit.Time, Hit.Normal, Hit);
         }
     }
