@@ -26,7 +26,7 @@ void URoombaMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Ti
         // If we bumped into something, adjust rotation to match normal
         if (Hit.IsValidBlockingHit())
         {
-            GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Red, FString::SanitizeFloat(Hit.Normal.Z));
+            //GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Red, FString::SanitizeFloat(Hit.Normal.Z));
             if (Hit.Normal.Z < 0.4)
             {
                 DesiredMovementThisFrame = FVector(0.f, 0.f, -0.5f) * DeltaTime * 150.0f;
