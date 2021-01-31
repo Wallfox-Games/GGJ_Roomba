@@ -77,6 +77,11 @@ void ARoombaPawn::BeginPlay()
 	}
 }
 
+void ARoombaPawn::setRoombaCharging()
+{
+	RoombaCharging = !RoombaCharging;
+}
+
 // Called every frame
 void ARoombaPawn::Tick(float DeltaTime)
 {
@@ -101,6 +106,7 @@ void ARoombaPawn::Tick(float DeltaTime)
 
 	RoombaHit = MovementComponent->getCurrentlyHit();
 	MaterialInstance->SetScalarParameterValue("Warning State", RoombaHit);
+	MaterialInstance->SetScalarParameterValue("Charging State", RoombaCharging);
 }
 
 // Called to bind functionality to input

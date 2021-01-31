@@ -35,11 +35,12 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USpringArmComponent* SpringArm;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	UMaterialInstanceDynamic* MaterialInstance;
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	UMaterialInterface* MaterialDynamic;
 
+	bool RoombaCharging;
 	bool RoombaMoving;
 	bool RoombaHit;
 
@@ -57,4 +58,7 @@ public:
 
 	void StartMoving();
 	void StopMoving();
+
+	UFUNCTION(BlueprintCallable)
+	void setRoombaCharging();
 };
