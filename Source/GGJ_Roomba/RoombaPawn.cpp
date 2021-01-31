@@ -85,6 +85,16 @@ void ARoombaPawn::Tick(float DeltaTime)
 		MovementComponent->AddInputVector(GetActorForwardVector());
 	}
 
+	const FVector UpVector = GetActorUpVector();
+	const FVector HitUpVector = MovementComponent->getGroundNormal();
+	FVector RotationAxis = FVector::CrossProduct(UpVector, HitUpVector);
+	RotationAxis.Normalize();
+
+	float RotationAngleRad = acosf(FVector::DotProduct(UpVector, HitUpVector));
+	FQuat Quat = FQuat(RotationAxis, RotationAngleRad);
+	FQuat NewQuat = Quat * GetActorQuat();
+	SetActorRotation(NewQuat);
+
 	RoombaHit = MovementComponent->getCurrentlyHit();
 	MaterialInstance->SetScalarParameterValue("Warning State", RoombaHit);
 }
