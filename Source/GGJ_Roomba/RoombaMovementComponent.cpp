@@ -23,10 +23,11 @@ void URoombaMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Ti
         FHitResult Hit;
         SafeMoveUpdatedComponent(DesiredMovementThisFrame, UpdatedComponent->GetComponentRotation(), true, Hit);
 
-        // If we bumped into something, try to slide along it
+        // If we bumped into something, adjust rotation to match normal
         if (Hit.IsValidBlockingHit())
         {
-            SlideAlongSurface(DesiredMovementThisFrame, 1.f - Hit.Time, Hit.Normal, Hit);
+            //SlideAlongSurface(DesiredMovementThisFrame, 1.f - Hit.Time, Hit.Normal, Hit);
+            GroundNormal = Hit.Normal;
         }
     }
 

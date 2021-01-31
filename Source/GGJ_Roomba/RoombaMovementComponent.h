@@ -16,9 +16,11 @@ class GGJ_ROOMBA_API URoombaMovementComponent : public UPawnMovementComponent
 
 protected:
 	bool CurrentlyHit;
+	FVector GroundNormal;
 
 public:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	bool getCurrentlyHit() { return CurrentlyHit; };
+	FVector getGroundNormal() { return GroundNormal; };
 };
