@@ -17,7 +17,7 @@ void URoombaMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Ti
         return;
     }
 
-    FVector DesiredMovementThisFrame = FVector(0.f, 0.f, -10.f) * DeltaTime * 150.0f;
+    FVector DesiredMovementThisFrame = FVector(0.f, 0.f, -2.f) * DeltaTime * 150.0f;
     if (!DesiredMovementThisFrame.IsNearlyZero())
     {
         FHitResult Hit;
