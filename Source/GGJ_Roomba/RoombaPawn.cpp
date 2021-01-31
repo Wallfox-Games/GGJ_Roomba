@@ -17,6 +17,7 @@ ARoombaPawn::ARoombaPawn()
 	CapsuleComponent->SetCapsuleHalfHeight(1.f);
 	CapsuleComponent->SetCapsuleRadius(20.f);
 	CapsuleComponent->SetCollisionProfileName(TEXT("Pawn"));
+	CapsuleComponent->SetGenerateOverlapEvents(true);
 
 	CapsuleVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
 	CapsuleVisual->SetupAttachment(RootComponent);
@@ -54,6 +55,7 @@ ARoombaPawn::ARoombaPawn()
 		MaterialDynamic = (UMaterial*)MAT.Object;
 	}
 
+	
 	RoombaMoving = false;
 	RoombaHit = false;
 }
@@ -85,9 +87,10 @@ void ARoombaPawn::Tick(float DeltaTime)
 		MovementComponent->AddInputVector(GetActorForwardVector());
 	}
 
+	FRotator Rotation = GetActorRotation();
+
 	const FVector UpVector = GetActorUpVector();
-	FVector HitUpVector = MovementComponent->getGroundNormal();
-	HitUpVector.Z = UpVector.Z;
+	const FVector HitUpVector = MovementComponent->getGroundNormal();
 	FVector RotationAxis = FVector::CrossProduct(UpVector, HitUpVector);
 	RotationAxis.Normalize();
 
