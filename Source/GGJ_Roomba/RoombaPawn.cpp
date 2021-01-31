@@ -86,7 +86,8 @@ void ARoombaPawn::Tick(float DeltaTime)
 	}
 
 	const FVector UpVector = GetActorUpVector();
-	const FVector HitUpVector = MovementComponent->getGroundNormal();
+	FVector HitUpVector = MovementComponent->getGroundNormal();
+	HitUpVector.Z = UpVector.Z;
 	FVector RotationAxis = FVector::CrossProduct(UpVector, HitUpVector);
 	RotationAxis.Normalize();
 
